@@ -1,0 +1,105 @@
+# Coding Standards Configuration
+
+# Python standards
+python:
+  # Style guide
+  style_guide: "pep8"
+  
+  # Line length
+  max_line_length: 88
+  
+  # Indentation
+  indent_size: 4
+  use_spaces: true
+  
+  # Imports
+  import_order:
+    - standard_library
+    - third_party
+    - local
+  sort_imports: true
+  
+  # Naming conventions
+  naming:
+    classes: "PascalCase"
+    functions: "snake_case"
+    variables: "snake_case"
+    constants: "SCREAMING_SNAKE_CASE"
+    private: "_leading_underscore"
+  
+  # Type hints
+  require_type_hints: true
+  type_checking_level: "strict"
+  
+  # Docstrings
+  docstring_style: "google"
+  require_docstrings: true
+  
+  # Linting tools
+  linters:
+    - ruff
+    - mypy
+  
+  # Formatters
+  formatter: "black"
+
+# JavaScript standards
+javascript:
+  # Style guide
+  style_guide: "airbnb"
+  
+  # Line length
+  max_line_length: 100
+  
+  # Indentation
+  indent_size: 2
+  use_spaces: true
+  
+  # Semicolons
+  use_semicolons: true
+  
+  # Quotes
+  quote_style: "single"
+  
+  # ES version
+  target_version: "ES2022"
+  
+  # Linting tools
+  linters:
+    - eslint
+  
+  # Formatters
+  formatter: "prettier"
+
+# SQL standards
+sql:
+  # Keywords case
+  keyword_case: "upper"
+  
+  # Identifiers case
+  identifier_case: "lower"
+  
+  # Indentation
+  indent_size: 2
+  
+  # Naming
+  table_naming: "snake_case"
+  column_naming: "snake_case"
+
+# General standards
+general:
+  # File encoding
+  file_encoding: "utf-8"
+  
+  # Line endings
+  line_endings: "lf"
+  
+  # Trailing whitespace
+  trim_trailing_whitespace: true
+  
+  # Final newline
+  insert_final_newline: true
+  
+  # Comments
+  comment_language: "english"
+  require_todo_tracking: true

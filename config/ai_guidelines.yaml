@@ -1,0 +1,120 @@
+# AI Guidelines Configuration
+# Rules and best practices for AI code generation
+
+# General principles for AI-generated code
+general:
+  # Always treat AI output as draft
+  treat_as_draft: true
+  # Require human review before merging
+  require_human_review: true
+  # Maximum acceptable complexity for single AI generation
+  max_complexity_score: 15
+  # Track lineage of generated code
+  track_lineage: true
+
+# Code generation rules
+generation:
+  # Include these comments in generated code
+  include_comments: true
+  comment_style: "docstring"  # docstring, inline, or both
+  
+  # Code structure preferences
+  max_function_length: 50  # lines
+  max_file_length: 300  # lines
+  prefer_small_functions: true
+  
+  # Error handling
+  always_include_error_handling: true
+  use_specific_exceptions: true
+  
+  # Typing
+  require_type_hints: true
+  strict_typing: true
+
+# Validation rules
+validation:
+  # Run these checks on all AI-generated code
+  checks:
+    - syntax_validation
+    - type_checking
+    - security_scan
+    - style_lint
+    - complexity_analysis
+  
+  # Minimum requirements
+  min_test_coverage: 80  # percent
+  max_cyclomatic_complexity: 10
+  
+  # Security
+  scan_for_secrets: true
+  check_dependencies: true
+
+# Documentation requirements
+documentation:
+  # Every generated function must have
+  require_docstrings: true
+  require_usage_examples: false
+  require_parameter_docs: true
+  require_return_docs: true
+  
+  # Track why code was generated
+  log_generation_context: true
+  log_prompt_used: true
+
+# Quality gates
+quality_gates:
+  # Must pass before code is accepted
+  gates:
+    - name: "lint"
+      required: true
+      tool: "ruff"
+    
+    - name: "type_check"
+      required: true
+      tool: "mypy"
+    
+    - name: "security"
+      required: true
+      tool: "bandit"
+    
+    - name: "tests"
+      required: true
+      min_coverage: 80
+
+# Prompt engineering guidelines
+prompting:
+  # Structure for effective prompts
+  recommended_structure:
+    - context
+    - task
+    - constraints
+    - examples
+    - output_format
+  
+  # Always include
+  always_specify:
+    - programming_language
+    - coding_style
+    - error_handling_approach
+    - expected_inputs_outputs
+
+# Model-specific settings
+models:
+  gpt-4:
+    temperature: 0.3
+    max_tokens: 4096
+    system_prompt: "You are a senior software engineer. Write clean, maintainable code."
+  
+  claude-3:
+    temperature: 0.3
+    max_tokens: 4096
+    system_prompt: "You are a senior software engineer. Write clean, maintainable code."
+
+# Ownership and accountability
+ownership:
+  # Assign owner to generated code
+  assign_owner: true
+  # Track who reviewed the code
+  track_reviewers: true
+  # Version prompts
+  version_prompts: true
