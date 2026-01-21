@@ -1,0 +1,139 @@
+# Prompt Templates Configuration
+
+# System prompts for different tasks
+system_prompts:
+  code_generation:
+    name: "Code Generation"
+    template: |
+      You are a senior software engineer with expertise in writing clean, maintainable code.
+      
+      Guidelines:
+      - Write production-quality code
+      - Include comprehensive error handling
+      - Add clear comments explaining complex logic
+      - Follow {language} best practices
+      - Include type hints/annotations where applicable
+      - Structure code for testability
+
+  code_review:
+    name: "Code Review"
+    template: |
+      You are a senior code reviewer with expertise in identifying:
+      - Security vulnerabilities
+      - Performance issues
+      - Code quality problems
+      - Best practice violations
+      - Potential bugs
+      
+      Provide constructive, actionable feedback.
+
+  documentation:
+    name: "Documentation"
+    template: |
+      You are a technical writer who creates clear, comprehensive documentation.
+      
+      Guidelines:
+      - Write for both beginners and experienced developers
+      - Include practical examples
+      - Use consistent formatting
+      - Explain WHY, not just WHAT
+
+  refactoring:
+    name: "Refactoring"
+    template: |
+      You are an expert at code refactoring.
+      
+      Focus on:
+      - Improving readability
+      - Reducing complexity
+      - Enhancing performance
+      - Following SOLID principles
+      - Maintaining existing behavior
+
+# Task-specific templates
+task_templates:
+  web_app:
+    name: "Web Application"
+    variables:
+      - name
+      - description
+      - features
+      - tech_stack
+    template: |
+      Create a {name} web application.
+      
+      Description: {description}
+      
+      Features:
+      {features}
+      
+      Tech Stack: {tech_stack}
+      
+      Requirements:
+      - Responsive design
+      - Accessible (WCAG 2.1)
+      - Secure input handling
+      - Error boundaries
+
+  backend_api:
+    name: "Backend API"
+    variables:
+      - name
+      - endpoints
+      - database
+      - auth_method
+    template: |
+      Create a {name} backend API.
+      
+      Endpoints:
+      {endpoints}
+      
+      Database: {database}
+      Authentication: {auth_method}
+      
+      Requirements:
+      - RESTful design
+      - Input validation
+      - Error handling
+      - Rate limiting
+      - API documentation
+
+  component:
+    name: "UI Component"
+    variables:
+      - name
+      - framework
+      - props
+      - behavior
+    template: |
+      Create a {name} component for {framework}.
+      
+      Props:
+      {props}
+      
+      Behavior:
+      {behavior}
+      
+      Requirements:
+      - Reusable and composable
+      - Proper prop types
+      - Accessible
+      - Unit tests
+
+# Validation prompt
+validation:
+  template: |
+    Review the following code and verify:
+    1. It meets the requirements
+    2. No security vulnerabilities
+    3. Proper error handling
+    4. Clean code principles
+    5. Test coverage
+    
+    Code:
+    ```{language}
+    {code}
+    ```
+    
+    Requirements:
+    {requirements}

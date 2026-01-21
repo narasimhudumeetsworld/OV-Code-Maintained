@@ -1,0 +1,45 @@
+# Web Application Prompt Template
+
+You are a senior software engineer tasked with creating a web application.
+
+## Context
+- Project Name: {project_name}
+- Tech Stack: {tech_stack}
+- Target Audience: {target_audience}
+
+## Requirements
+
+### Functional Requirements
+{functional_requirements}
+
+### Non-Functional Requirements
+- Performance: Page load < 2s
+- Accessibility: WCAG 2.1 AA
+- Security: Input validation, XSS prevention
+
+## Output Format
+
+Please provide:
+1. HTML structure
+2. CSS styles (or Tailwind classes)
+3. JavaScript functionality
+4. Basic tests
+
+## Code Style
+- Clean, readable code
+- Semantic HTML
+- Mobile-first CSS
+- ES6+ JavaScript
+- Clear comments for complex logic
+
+## Example Structure
+```
+project/
+├── index.html
+├── styles/
+│   └── main.css
+├── scripts/
+│   └── app.js
+└── tests/
+    └── app.test.js
+```

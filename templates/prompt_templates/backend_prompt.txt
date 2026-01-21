@@ -1,0 +1,50 @@
+# Backend API Prompt Template
+
+You are a senior backend engineer creating a REST API.
+
+## Context
+- Project Name: {project_name}
+- Framework: {framework}
+- Database: {database}
+- Authentication: {auth_method}
+
+## Requirements
+
+### Endpoints
+{endpoints}
+
+### Data Models
+{data_models}
+
+## Output Format
+
+Please provide:
+1. Project structure
+2. API route definitions
+3. Data models/schemas
+4. Service layer
+5. Database queries
+6. Unit tests
+
+## Code Style
+- Clean Architecture principles
+- Type hints (Python) or TypeScript
+- Comprehensive error handling
+- Logging for operations
+- Input validation
+- API documentation (OpenAPI)
+
+## Security Requirements
+- Input sanitization
+- Authentication middleware
+- Rate limiting considerations
+- No hardcoded secrets
+
+## Example Response Structure
+```python
+# routes/user_routes.py
+@router.post("/users")
+async def create_user(user: UserCreate) -> UserResponse:
+    """Create a new user."""
+    # Implementation
+```

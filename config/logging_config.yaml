@@ -1,0 +1,74 @@
+# Logging Configuration
+
+version: 1
+disable_existing_loggers: false
+
+# Formatters
+formatters:
+  standard:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+  
+  detailed:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s - %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+  
+  json:
+    format: '{"timestamp": "%(asctime)s", "level": "%(levelname)s", "logger": "%(name)s", "message": "%(message)s"}'
+
+# Handlers
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: standard
+    stream: ext://sys.stdout
+  
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/app.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 5
+    encoding: utf-8
+  
+  error_file:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: detailed
+    filename: logs/error.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 5
+    encoding: utf-8
+
+# Loggers
+loggers:
+  # Main application logger
+  ov_code:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+  
+  # LLM client logger
+  ov_code.llm:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+  
+  # Prompt engineering logger
+  ov_code.prompt:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+  
+  # Validation logger
+  ov_code.validation:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+# Root logger
+root:
+  level: INFO
+  handlers: [console]
