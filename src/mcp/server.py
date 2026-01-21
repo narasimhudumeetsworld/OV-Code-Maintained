@@ -306,15 +306,18 @@ Generate clean, maintainable, production-quality {language} code.
         
         # Write code to temp file for analysis
         import tempfile
-        with tempfile.NamedTemporaryFile(
-            mode="w", 
-            suffix=f".{language[:2]}",
-            delete=False
-        ) as f:
-            f.write(code)
-            temp_path = f.name
+        import os
         
+        temp_path = None
         try:
+            with tempfile.NamedTemporaryFile(
+                mode="w", 
+                suffix=f".{language[:2]}",
+                delete=False
+            ) as f:
+                f.write(code)
+                temp_path = f.name
+            
             analyzer = SecurityAnalyzer()
             result = analyzer.analyze_file(temp_path, language)
             
@@ -337,8 +340,11 @@ Generate clean, maintainable, production-quality {language} code.
                 "last_updated": analyzer.last_updated
             }
         finally:
-            import os
-            os.unlink(temp_path)
+            if temp_path and os.path.exists(temp_path):
+                try:
+                    os.unlink(temp_path)
+                except OSError:
+                    pass  # Best effort cleanup
     
     async def _handle_code_review(self, args: dict) -> dict:
         """Handle code review request."""

@@ -137,7 +137,9 @@ class BestPracticesManager:
             
             for practice in cat_practices:
                 line = practice.to_prompt_format()
-                # Rough token estimate (4 chars per token)
+                # Token estimation: ~4 chars per token is a rough approximation.
+                # For more accurate estimation, consider using tiktoken or model-specific tokenizers.
+                # This approximation is sufficient for context window management.
                 line_tokens = len(line) // 4
                 
                 if current_tokens + line_tokens > max_tokens:

@@ -157,9 +157,16 @@ class OpenAIClient(BaseLLMClient):
         Returns:
             True if connection is valid.
         """
+        import logging
+        logger = logging.getLogger(__name__)
+        
         try:
             client = self._get_client()
             await client.models.list()
             return True
-        except Exception:
+        except ImportError as e:
+            logger.warning(f"OpenAI package not installed: {e}")
+            return False
+        except Exception as e:
+            logger.warning(f"OpenAI connection validation failed: {e}")
             return False

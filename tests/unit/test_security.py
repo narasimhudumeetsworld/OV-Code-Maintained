@@ -19,31 +19,39 @@ class TestSecurityAnalyzer:
     
     def test_detect_hardcoded_secret(self, sample_python_code):
         """Test detection of hardcoded secrets."""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
-            f.write(sample_python_code)
-            f.flush()
+        temp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+                f.write(sample_python_code)
+                f.flush()
+                temp_path = f.name
             
-            result = self.analyzer.analyze_file(f.name, "python")
+            result = self.analyzer.analyze_file(temp_path, "python")
             
             # Should find the hardcoded password
             secret_findings = [f for f in result.findings if f.category == "secrets"]
             assert len(secret_findings) > 0
-            
-            Path(f.name).unlink()
+        finally:
+            if temp_path:
+                Path(temp_path).unlink(missing_ok=True)
     
     def test_detect_xss_in_javascript(self, sample_javascript_code):
         """Test detection of XSS vulnerabilities in JavaScript."""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.js', delete=False) as f:
-            f.write(sample_javascript_code)
-            f.flush()
+        temp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.js', delete=False) as f:
+                f.write(sample_javascript_code)
+                f.flush()
+                temp_path = f.name
             
-            result = self.analyzer.analyze_file(f.name, "javascript")
+            result = self.analyzer.analyze_file(temp_path, "javascript")
             
             # Should find innerHTML usage
             xss_findings = [f for f in result.findings if f.category == "xss"]
             assert len(xss_findings) > 0
-            
-            Path(f.name).unlink()
+        finally:
+            if temp_path:
+                Path(temp_path).unlink(missing_ok=True)
     
     def test_clean_code_has_no_findings(self):
         """Test that clean code has no security findings."""
@@ -52,17 +60,21 @@ def add(a: int, b: int) -> int:
     """Add two numbers."""
     return a + b
 '''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
-            f.write(clean_code)
-            f.flush()
+        temp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+                f.write(clean_code)
+                f.flush()
+                temp_path = f.name
             
-            result = self.analyzer.analyze_file(f.name, "python")
+            result = self.analyzer.analyze_file(temp_path, "python")
             
             # Filter out LOW severity (like TODO comments)
             high_medium = [f for f in result.findings if f.severity in ["HIGH", "MEDIUM"]]
             assert len(high_medium) == 0
-            
-            Path(f.name).unlink()
+        finally:
+            if temp_path:
+                Path(temp_path).unlink(missing_ok=True)
     
     def test_result_summary(self):
         """Test that result provides correct summary."""

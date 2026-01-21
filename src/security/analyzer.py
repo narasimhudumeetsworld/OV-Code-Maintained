@@ -206,7 +206,10 @@ class SecurityAnalyzer:
         return {
             "common": [
                 {
-                    "pattern": r"(password|passwd|pwd|secret|api_key|apikey|token|auth)\s*=\s*['\"][^'\"]+['\"]",
+                    # More precise pattern to avoid false positives like password_hash = get_hash()
+                    # Matches: password = "secret" or api_key = 'value123'
+                    # Avoids: password_hash = hash() or get_password() calls
+                    "pattern": r"(?<![_a-zA-Z])(password|passwd|pwd|secret|api_key|apikey|token|auth_token)\s*=\s*['\"][a-zA-Z0-9_\-\.@#$%^&*]{4,}['\"]",
                     "severity": "HIGH",
                     "category": "secrets",
                     "description": "Hardcoded secret or credential detected",
